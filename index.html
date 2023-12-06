@@ -23,12 +23,25 @@
             color: green;
         }
     </style>
+</head>
+<body>
+    <h1>Clasificador de Frutas</h1>
+    <p>Sube una imagen de una fruta y el sistema intentará identificarla.</p>
+    
+    <div id="upload-form">
+        <input type="file" id="file-input" name="file" accept="image/*" required>
+        <button onclick="sendImage()">Subir y Clasificar</button>
+    </div>
+    <div id="result"></div>
+
     <script>
         function sendImage() {
-            let formData = new FormData();
-            formData.append('file', document.getElementById('file-input').files[0]);
+            var fileInput = document.getElementById('file-input');
+            var file = fileInput.files[0];
+            var formData = new FormData();
+            formData.append('file', file);
 
-            fetch('https://testfinal-mwernvc4pq-wn.a.run.app/', {
+            fetch('https://proyecto-final-mwernvc4pq-wn.a.run.app/', {
                 method: 'POST',
                 body: formData
             })
@@ -41,15 +54,5 @@
             });
         }
     </script>
-</head>
-<body>
-    <h1>Clasificador de Frutas</h1>
-    <p>Sube una imagen de una fruta y el sistema intentará identificarla.</p>
-    
-    <div id="upload-form">
-        <input type="file" id="file-input" name="file" accept="image/*" required>
-        <button onclick="sendImage()">Subir y Clasificar</button>
-    </div>
-    <div id="result"></div>
 </body>
 </html>
