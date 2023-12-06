@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Clasificador de Frutas</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            text-align: center;
+            padding: 50px;
+        }
+        #upload-form {
+            background-color: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        #result {
+            margin-top: 20px;
+            font-size: 20px;
+            color: green;
+        }
+    </style>
+    <script>
+        function sendImage() {
+            let formData = new FormData();
+            formData.append('file', document.getElementById('file-input').files[0]);
+
+            fetch('https://proyecto-final-mwernvc4pq-wn.a.run.app/', {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => response.json())
+            .then(data => {
+                document.getElementById('result').textContent = 'Predicción: ' + data.Predicción;
+            })
+            .catch(error => {
+                document.getElementById('result').textContent = 'Error: ' + error;
+            });
+        }
+    </script>
+</head>
+<body>
+    <h1>Clasificador de Frutas</h1>
+    <p>Sube una imagen de una fruta y el sistema intentará identificarla.</p>
+    
+    <div id="upload-form">
+        <input type="file" id="file-input" name="file" accept="image/*" required>
+        <button onclick="sendImage()">Subir y Clasificar</button>
+    </div>
+    <div id="result"></div>
+</body>
+</html>
